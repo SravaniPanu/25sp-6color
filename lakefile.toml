@@ -1,0 +1,15 @@
+name = "sp480b6color"
+version = "0.1.0"
+defaultTargets = ["sp480b6color"]
+
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4"
+rev = "v4.19.0-rc2"
+
+[[lean_lib]]
+name = "Sp480b6color"
+
+[[lean_exe]]
+name = "sp480b6color"
+root = "Main"

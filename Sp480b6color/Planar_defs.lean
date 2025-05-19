@@ -16,8 +16,8 @@ structure Planar {V : Type u} (G : SimpleGraph V)
   -- Non-empty vertices
   v_nonempty : Fintype.card V ≥ 1
 
-  -- Face ≥ 1
-  face_nonempty : E.card + 2 - Fintype.card V ≥ 1
+  -- Euler constraint
+  euler_constraint : E.card + 2 > Fintype.card V
 
   -- Handshaking
   handshaking : ∑ v, G.degree v = 2 * E.card
@@ -47,33 +47,22 @@ lemma vertices_positive (h : Planar G) : h.v ≥ 1 := by
   exact h.v_nonempty
 
 -- Faces defined `v - e + f = 2`.
-def f (h : Planar G) : ℕ := h.e + 2 - h.v
+def f (h : Planar G) : ℤ := (h.e : ℤ) + 2 - (h.v : ℤ)
 
 lemma face_positive (h : Planar G): h.e + 2 - h.v > 0 :=  by
-  exact h.face_nonempty
+  exact Nat.sub_pos_of_lt (Nat.add_lt_add_right h.euler_constraint 0)
 
 -- Euler’s formula
+
 theorem euler_char (h : Planar G) : (h.v : ℤ) - (h.e : ℤ) + (h.f : ℤ) = 2 := by
   dsimp [e, v, f]
-  let n := Fintype.card V
-  let m := h.E.card
+  ring
 
-  have h_f_pos : h.f ≥ 1 := by
-    apply face_positive
 
-  have h_eq (x y: ℤ): x - y  + (y + 2 - x) = 2 := by
-    ring
+#check euler_char
 
-  -- rw [h_eq]
-  sorry
 
 end Planar
-
-
-
--- def f {G : SimpleGraph V} (h : Planar G) : Nat := sorry
-
--- #check euler_char
 
 -- theorem five_color (G : SimpleGraph V) (h : Planar G) : Planar G := by
 --   exact h

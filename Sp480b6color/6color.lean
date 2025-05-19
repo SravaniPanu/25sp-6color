@@ -25,7 +25,7 @@ structure Planar {V : Type u} (G : SimpleGraph V)
   -- Every chosen pair really is an edge of the graph.
   edges_are_graph_edges : ∀ e ∈ E, e ∈ G.edgeSet
 
-  -- Minimum face‐degree bound for |V|≥3: every face has size ≥3.
+  -- Minimum face‐degree bound for |V|≥3: ever  y face has size ≥3.
   face_degree_bound : (Fintype.card V ≥ 3) → 3 * (E.card + 2 - Fintype.card V) ≤ 2 * E.card
 
 
@@ -64,16 +64,16 @@ theorem euler_char (h : Planar G) : (h.v : ℤ) - (h.e : ℤ) + (h.f : ℤ) = 2 
   have h_eq (x y: ℤ): x - y  + (y + 2 - x) = 2 := by
     ring
 
-  rw [h_eq]
+  -- rw [h_eq]
   sorry
 
 end Planar
 
 
 
-def f {G : SimpleGraph V} (h : Planar G) : Nat := sorry
+-- def f {G : SimpleGraph V} (h : Planar G) : Nat := sorry
 
-#check euler_char
+-- #check euler_char
 
-theorem five_color (G : SimpleGraph V) (h : Planar G) : Planar G := by
-  exact h
+-- theorem five_color (G : SimpleGraph V) (h : Planar G) : Planar G := by
+--   exact h

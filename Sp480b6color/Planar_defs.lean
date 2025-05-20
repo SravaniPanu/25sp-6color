@@ -5,7 +5,7 @@ import Mathlib.Combinatorics.SimpleGraph.Basic
     edge‐finset satisfying the usual handshaking and face‐degree bounds.
     We *define* the number of faces to be `e + 2 - v`. -/
 structure Planar {V : Type u} (G : SimpleGraph V)
-  [Fintype V] [DecidableEq V] [DecidableRel G.Adj] where
+  [Fintype V] [DecidableRel G.Adj] where
 
   -- We pick out exactly which edges “live in the embedding.”
   E : Finset (Sym2 V)
@@ -32,7 +32,7 @@ structure Planar {V : Type u} (G : SimpleGraph V)
 namespace Planar
 
 variable {V : Type u} {G : SimpleGraph V}
-  [Fintype V] [DecidableEq V] [DecidableRel G.Adj]
+  [Fintype V] [DecidableRel G.Adj]
 
 -- Edges
 def e (h : Planar G) : ℕ := h.E.card

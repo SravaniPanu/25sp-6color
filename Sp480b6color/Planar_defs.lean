@@ -58,6 +58,32 @@ theorem euler_char (h : Planar G) : (h.v : ℤ) - (h.e : ℤ) + (h.f : ℤ) = 2 
   dsimp [e, v, f]
   ring
 
+theorem five_or_fewer_vertex (h : Planar G): ∃v : V, G.degree v ≤ 5 := by
+  by_contra a
+  simp_all
+
+  -- Total degree must be lower bounded by the sum of degree of the vertices
+  have h1: ∑ v, G.degree v ≥ 6 * h.v := by
+    sorry
+
+  -- Invoke handshaking lemma
+  have h2: 6 * h.v ≤ 2 * h.e := by
+    sorry
+
+  -- Use e ≤ 3v - 6  to prove that the degree calculated using edges is
+  have h3: h.e ≤ 3 * h.v - 6 := by
+    sorry
+
+  -- Simplify h2
+  have h4: h.e ≥ 3*h.v := by
+    linarith
+
+  -- Trivial result for combining our two inequalities
+  have h5: 3 * h.v - 6 < 3 * h.v := by
+    simp_all only [ge_iff_le, tsub_lt_self_iff, Nat.ofNat_pos, mul_pos_iff_of_pos_left, and_true]
+    exact h.v_nonempty
+  -- Combine inequalities to create a contradiction
+  linarith
 
 #check euler_char
 

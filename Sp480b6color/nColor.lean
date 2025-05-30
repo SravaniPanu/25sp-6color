@@ -28,6 +28,7 @@ local instance : DecidableRel (G.Adj) := by assumption
 def neighbors (v : V) : Finset V :=
   Finset.univ.filter (λ u => G.Adj v u)
 
+-- if the degree of every vertex is less than n, then you can find a proper coloring for the entire graph
 theorem coloring_of_bounded_degree
   {V : Type*} [Fintype V] [DecidableEq V]
   (G : SimpleGraph V) [DecidableRel G.Adj]

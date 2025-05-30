@@ -8,7 +8,7 @@ open SimpleGraph
 
 universe u
 
-variable {V : Type u} [DecidableEq V] (G : SimpleGraph V)
+variable {V : Type u} (G : SimpleGraph V)
 
 -- A coloring with n colors is a map from vertices to Fin n
 namespace Coloring
@@ -20,7 +20,7 @@ instance : CoeFun (ColoringType G n) (fun _ => V → Fin n) :=
 
 end Coloring
 
-variable {V : Type u} [Fintype V] [DecidableEq V]
+variable {V : Type u} [Fintype V]
 variable {G : SimpleGraph V} [DecidableRel G.Adj]
 
 -- Returns neighbors of a vertex as a Finset

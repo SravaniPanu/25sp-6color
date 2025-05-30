@@ -28,5 +28,11 @@ local instance : DecidableRel (G.Adj) := by assumption
 def neighbors (v : V) : Finset V :=
   Finset.univ.filter (λ u => G.Adj v u)
 
--- Lemma: if a vertex has fewer than n neighbors, and they're all colored, you can extend the coloring
--- working on this
+theorem coloring_of_bounded_degree
+  {V : Type*} [Fintype V] [DecidableEq V]
+  (G : SimpleGraph V) [DecidableRel G.Adj]
+  (n : ℕ)
+  (h_deg : ∀ v : V, G.degree v < n)
+  (h_pos : 0 < n) :
+  Nonempty (G.Coloring (Fin n)) := by
+  sorry

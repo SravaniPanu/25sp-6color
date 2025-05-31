@@ -44,7 +44,8 @@ theorem of_subgraph (hG : Planar G) (H : G.Subgraph)
   sorry
 
 
--- checking
+--
+
 
 #check G.Subgraph
 

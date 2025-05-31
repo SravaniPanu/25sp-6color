@@ -43,6 +43,9 @@ theorem of_subgraph (hG : Planar G) (H : G.Subgraph)
   -- 2. Proving all the planar properties hold for the subgraph
   sorry
 
+
+-- checking
+
 #check G.Subgraph
 
 #check (⊤ : G.Subgraph)

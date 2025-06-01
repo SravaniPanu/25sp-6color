@@ -35,6 +35,8 @@ variable {V : Type u} {G : SimpleGraph V}
 
 variable  (w : V)
 
+
+
 -- General theorem: any subgraph of a planar graph is planar
 theorem of_subgraph (hG : Planar G) (H : G.Subgraph)
   [Fintype H.verts] [DecidableRel H.coe.Adj] : IsPlanar H.coe := by
@@ -44,7 +46,19 @@ theorem of_subgraph (hG : Planar G) (H : G.Subgraph)
   sorry
 
 
---
+noncomputable
+instance deleteVertsFintype (w : V) :
+    Fintype ↑((⊤ : G.Subgraph).deleteVerts {w}).verts :=
+  Fintype.ofFinite _
+
+theorem delete_vertex (hG : Planar G) (w : V):
+    IsPlanar ((⊤ : G.Subgraph).deleteVerts {w}).coe := by
+  let H : G.Subgraph := (⊤ : G.Subgraph).deleteVerts {w}
+  exact of_subgraph hG H
+
+
+
+--- Might delete below
 
 
 #check G.Subgraph
@@ -69,19 +83,15 @@ theorem of_subgraph (hG : Planar G) (H : G.Subgraph)
 --   …
 
 theorem del_vertex (hG : Planar G) (H : G.Subgraph) (w : V)
-  [Fintype H.verts] [DecidableRel H.coe.Adj] :
+  [Fintype H.verts] [DecidableRel H.coe.Adj] [Fintype ↑(H.deleteVerts {w}).verts] [DecidableRel (H.deleteVerts {w}).coe.Adj]:
   IsPlanar (H.deleteVerts {w}).coe := by exact of_subgraph hG (H.deleteVerts {w})
 
--- theorem del_vertex (hG : Planar G) (H : G.Subgraph) (w : V) [Fintype H.verts] [DecidableRel H.coe.Adj] : IsPlanar H.deleteVerts {w}  := by
+-- theorem delete_vertex (hG : Planar G) (w : V):
+--     IsPlanar ((⊤ : G.Subgraph).deleteVerts {w}).coe := by
 
---   sorry
+--   let H : G.Subgraph := (⊤ : G.Subgraph).deleteVerts {w}
 
-theorem delete_vertex (hG : Planar G) (w : V):
-    IsPlanar ((⊤ : G.Subgraph).deleteVerts {w}).coe := by
-
-  let H : G.Subgraph := (⊤ : G.Subgraph).deleteVerts {w}
-
-  exact of_subgraph hG H
+--   exact of_subgraph hG H
 
 
 end Planar

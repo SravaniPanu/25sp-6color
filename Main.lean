@@ -34,11 +34,10 @@ lemma zero_colorable (h : Planar G) (h1 : Fintype.card V = 0) :
 
 -- /-- 2.  If a graph `G` has a vertex `v` of degree ≤ 5 and the graph
 --       obtained by deleting `v` has a 6-colouring, then so does `G`. -/
--- lemma Colorable.extend_degree_le_five
---     {V : Type*} {G : SimpleGraph V} {v : V}
---     (hdeg : G.degree v ≤ 5)
---     (hcol : ((⊤ : G.Subgraph).deleteVerts {v}).coe.Colorable 6) :
---     G.Colorable 6 := sorry
+lemma Colorable.extend_degree_le_five (h : Planar G)
+    (hdeg :  ∃v : V, G.degree v ≤ 5 )
+    (hcol : ((⊤ : G.Subgraph).deleteVerts {v}).coe.Colorable 6) :
+    G.Colorable 6 := sorry
 
 
 theorem Color (h: Planar G) : (G.Colorable) (6) := by
@@ -68,4 +67,4 @@ theorem Color (h: Planar G) : (G.Colorable) (6) := by
           exact this hH                -- IH gives the colouring
 
         -- 3.  Extend that colouring to the whole graph
-        exact Colorable.extend_degree_le_five hv0 hcolH
+        exact Colorable.extend_degree_le_five h hv0 hcolH

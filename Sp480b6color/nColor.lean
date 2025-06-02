@@ -3,22 +3,13 @@ import Mathlib.Combinatorics.SimpleGraph.Basic
 import Mathlib.Data.Finset.Basic
 import Mathlib.Data.Fintype.Basic
 import Mathlib.Tactic
+import Mathlib.Data.Fintype.Card
 
 open SimpleGraph
 
 universe u
 
 variable {V : Type u} (G : SimpleGraph V)
-
--- A coloring with n colors is a map from vertices to Fin n
-namespace Coloring
-
-def ColoringType (n : ℕ) := { f : V → Fin n // ∀ ⦃u v : V⦄, G.Adj u v → f u ≠ f v }
-
-instance : CoeFun (ColoringType G n) (fun _ => V → Fin n) :=
-  ⟨fun f => f.val⟩
-
-end Coloring
 
 variable {V : Type u} [Fintype V]
 variable {G : SimpleGraph V} [DecidableRel G.Adj]
@@ -36,4 +27,26 @@ theorem coloring_of_bounded_degree
   (h_deg : ∀ v : V, G.degree v < n)
   (h_pos : 0 < n) :
   Nonempty (G.Coloring (Fin n)) := by
-  sorry
+
+  induction' card_V : Fintype.card V using Nat.strong_induction_on with k ih generalizing V
+
+  cases k with
+  | zero =>
+    have h_empty : IsEmpty V := Fintype.card_eq_zero_iff.mp card_V
+    use fun x => IsEmpty.elim h_empty x
+    intro u v h_adj
+    exact IsEmpty.elim h_empty u
+  | succ k' =>
+    haveI : Nonempty V := Fintype.card_pos_iff.mp (by rw [card_V]; exact Nat.succ_pos _)
+    obtain ⟨v⟩ := ‹Nonempty V›
+
+    let V' := {u : V // u ≠ v}
+    let G' : SimpleGraph {u : V // u ≠ v} := SimpleGraph.induce (fun u => u ≠ v) G
+
+    have card_V' : Fintype.card V' < Fintype.card V := by
+      -- apply Fintype.card_subtype_lt (p := fun u => u ≠ v)
+      sorry
+
+    have deg' : ∀ u : V', G'.degree u < n := by
+      sorry
+    sorry

@@ -1,8 +1,10 @@
 import Sp480b6color
 
-#eval isEvenPrime 2
-#eval isEvenPrime 3
-#eval isEvenPrime 4
+-- Ensure basic functionality works
+
+#eval isEven 2
+#eval isEven 3
+#eval isEven 4
 
 def main : IO Unit :=
 

@@ -1,4 +1,4 @@
 import Mathlib.Tactic
 
-def isEvenPrime (n : Nat) : Bool :=
-  n.Prime ∧ n = 2
+def isEven (n : Nat) : Bool :=
+  n % 2 = 0

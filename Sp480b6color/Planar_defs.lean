@@ -1,5 +1,4 @@
 import Mathlib
-import Mathlib.Combinatorics.SimpleGraph.Basic
 
 /-- A finite, connected simple graph is planar if there is a choice of
     edge‐finset satisfying the usual handshaking and face‐degree bounds.
@@ -58,8 +57,7 @@ theorem euler_char (h : Planar G) : (h.v : ℤ) - (h.e : ℤ) + (h.f : ℤ) = 2 
   ring
 #check G.sum_degrees_eq_twice_card_edges
 #check G.maxDegree_lt_card_verts
-#check Finset.sum_const
-
+#check Finset.sum_univ_pi
 
 
 theorem five_or_fewer_vertex (h : Planar G): ∃v : V, G.degree v ≤ 5 := by
@@ -75,8 +73,12 @@ theorem five_or_fewer_vertex (h : Planar G): ∃v : V, G.degree v ≤ 5 := by
     have h1b: ∑ v: V, G.degree v ≥ ∑ v : V, 6 := by
       exact Finset.sum_le_sum fun i a_1 => a i
     have h1c: ∑ v : V, 6 = 6 * Fintype.card V := by
-      -- exact Finset.sum_const (Fintype.card V) 6
-      sorry
+      -- induction' (Fintype.card V) with n ih
+
+      have V_finset : Finset V := Finset.univ
+      have h1c1 := @Finset.sum_const _ _ V_finset _ 6
+      simp
+      ring
     linarith
 
   -- Invoke handshaking lemma

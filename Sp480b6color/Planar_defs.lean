@@ -10,7 +10,7 @@ structure Planar {V : Type u} (G : SimpleGraph V)
   E : Finset (Sym2 V)
 
   -- Connectivity needed so Euler’s formula really gives `f = e + 2 - v`.
-  connected : G.Connected -- Might not work when we create disconnected...
+  -- connected : G.Connected -- Might not work when we create disconnected...
 
   -- Non-empty vertices
   v_nonempty : Fintype.card V ≥ 1

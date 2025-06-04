@@ -126,16 +126,8 @@ theorem coloring_of_bounded_degree
     · -- Case: u = v
       by_cases h_w : w = v
       · -- Case: w = v and w = v
-        subst h_u h_w
         sorry
       · -- Case: u = v and w ≠ v
-        subst h_u
-        simp [c, if_pos rfl, if_neg h_w]
-        have h_w_in_used : c' ⟨w, h_w⟩ ∈ used_colors := by
-          simp [used_colors]
-          use w
-          sorry
-        apply?
         sorry
     · -- Case: u ≠ v
       by_cases h_w : w = v

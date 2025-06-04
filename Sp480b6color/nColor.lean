@@ -121,20 +121,25 @@ theorem coloring_of_bounded_degree
 
     simp_all
 
-    -- Now, prove that `c` is a proper coloring.
+    -- Now, prove that `c` is a proper coloring - to be completed.
     by_cases h_u : u = v
     · -- Case: u = v
-      subst h_u
-      simp [c]
-      have h_w_ne : w ≠ u := by
-        intro h_eq
-        subst h_eq
-        exact G.irrefl h_adj
-      simp [if_neg h_w_ne]
-      have h_w_in_used : c' ⟨w, h_w_ne⟩ ∈ used_colors := by
-        simp [used_colors]
-        use w
+      by_cases h_w : w = v
+      · -- Case: w = v and w = v
+        subst h_u h_w
         sorry
-      sorry
+      · -- Case: u = v and w ≠ v
+        subst h_u
+        simp [c, if_pos rfl, if_neg h_w]
+        have h_w_in_used : c' ⟨w, h_w⟩ ∈ used_colors := by
+          simp [used_colors]
+          use w
+          sorry
+        apply?
+        sorry
     · -- Case: u ≠ v
-      sorry
+      by_cases h_w : w = v
+      · -- Case: u ≠ v and w = v
+        sorry
+      · -- Case: both u ≠ v and w ≠ v
+        sorry

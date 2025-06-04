@@ -4,6 +4,7 @@ import Mathlib.Data.Finset.Basic
 import Mathlib.Data.Fintype.Basic
 import Mathlib.Tactic
 import Mathlib.Data.Fintype.Card
+import Mathlib.Combinatorics.SimpleGraph.Coloring
 
 open SimpleGraph
 
@@ -118,6 +119,7 @@ theorem coloring_of_bounded_degree
     use c
 
     intro u w h_adj
+    -- WTS: If u and w are adjacent, then c u ≠ c w.
 
     simp_all
 
@@ -126,12 +128,17 @@ theorem coloring_of_bounded_degree
     · -- Case: u = v
       by_cases h_w : w = v
       · -- Case: w = v and w = v
+        -- G is a simple graph (no loops), G.Adj v v is always false.
         sorry
       · -- Case: u = v and w ≠ v
+        -- c u = color_v, c w = c' ⟨w, h_w⟩
+        -- We ensured color_v is not in the set of colors used by v's neighbors, so c w ≠ color_v → c u ≠ c w
         sorry
     · -- Case: u ≠ v
       by_cases h_w : w = v
       · -- Case: u ≠ v and w = v
+        -- Same as 1.2, but flipped
         sorry
       · -- Case: both u ≠ v and w ≠ v
+        -- Both vertices are in V', the smaller graph, which by IH gives us proper coloring, ie. c u ≠ c w.
         sorry

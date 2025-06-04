@@ -25,13 +25,6 @@ lemma zero_colorable (h : Planar G) (h1 : Fintype.card V = 0) :
   -- `Colorable 6` is definitionally that non-emptiness.
   simpa [SimpleGraph.Colorable] using this
 
--- /-- 1.  Deleting a vertex of a planar graph leaves a planar graph.
---       (You already sketched this as `Planar.delete_vertex`; just
---       keep it as a `sorry` for now.) -/
--- lemma Planar.delete_vertex
---     (hG : Planar G) (v : V) :
---     Planar ((⊤ : G.Subgraph).deleteVerts {v}).coe := sorry
-
 -- /-- 2.  If a graph `G` has a vertex `v` of degree ≤ 5 and the graph
 --       obtained by deleting `v` has a 6-colouring, then so does `G`. -/
 lemma Colorable.extend_degree_le_five (h : Planar G) {v:V}
@@ -60,6 +53,7 @@ theorem Color (h: Planar G) : (G.Colorable) (6) := by
 
         have hcard : Fintype.card H.verts = n := by sorry
 
-        have hcolH : H.coe.Colorable 6 := ih hcard hPlanarH
+        -- have hcolH : H.coe.Colorable 6 := ih hcard hPlanarH
 
-        exact second_Colorable.extend_degree_le_five h v hcolH
+        -- exact second_Colorable.extend_degree_le_five h v hcolH
+        sorry

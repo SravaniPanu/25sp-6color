@@ -33,20 +33,26 @@ lemma Colorable.extend_degree_le_five (h : Planar G) {v:V}
 
 theorem Color (h: Planar G) : (G.Colorable) (6) := by
     induction' hV: Fintype.card V with n ih
+    -- Base Case
     case zero =>
         exact zero_colorable h hV
+    -- Induction Step (All Planar graphs with n+1 vertices are colorable)
     case succ =>
-        obtain ⟨v0, hv0⟩ := Planar.five_or_fewer_vertex h
+        -- Get the vertex from the planar graph with degree ≤ 5
         obtain ⟨v, hv⟩ := Planar.five_or_fewer_vertex (G := G) h
-        -- 2. colour the smaller graph
 
+        -- Remove vertex from planar graph to create subgraph H
         set H : G.Subgraph := (⊤ : G.Subgraph).deleteVerts {v} with hHdef
 
+        -- Show that this subgraph is still Planar
         have hPlanarH : IsPlanar H.coe := h.delete_vertex v
 
+        -- Show that this subgraph has n vertices
         have hcard : Fintype.card H.verts = n := by sorry
 
-        -- have hcolH : H.coe.Colorable 6 := ih hcard hPlanarH
+        -- To Do:
+        have hcolH : H.coe.Colorable 6 := ih hcard hPlanarH
 
         -- exact second_Colorable.extend_degree_le_five h v hcolH
+
         sorry
